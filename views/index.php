@@ -15,6 +15,8 @@
     </script>
 </head>
 <body>
+<h3>Login</h3>
+
 <form action="" method="post" name="login_form" onsubmit="doChallengeResponse()">
     <label for="username">username:</label>
     <label>
@@ -35,6 +37,7 @@
     </label>
 
     <input type="submit" value="Login"/>
+
 </form>
 </body>
 </html>

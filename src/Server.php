@@ -1,8 +1,26 @@
 <?php namespace Chresp;
 
+use Chresp\Client as Client;
 use PDO;
 
 class Server {
+
+    public function index()
+    {
+        Client::loadView('server');
+
+        if ( ! empty($_POST['username']) && ! empty($_POST['password'])) {
+
+            $username = $_POST['username'];
+            $password = sha1($_POST['password']);
+
+            $db = (new Server)->connect();
+
+            $db->query('insert into user_accounts (username, password) values (\'' . $username . '\', \'' . $password . '\')');
+            printf('New user with username <b>%s</b> and password <b>%s</b> created.', $_POST['username'], $_POST['password']);
+
+        }
+    }
 
     public function connect()
     {
@@ -38,10 +56,12 @@ class Server {
         if ( ! empty($user)) {
             $challenge = sha1($user[0]['username'] . ':' . $user[0]['password'] . ':' . $challenge);
             if ($response == $challenge) {
-                echo 'Success!';
+                echo 'Login success!';
             } else {
-                echo 'Something goes wrong!';
+                echo 'Wrong password or bad response!';
             }
+        } else {
+            echo 'Wrong username!';
         }
 
     }
