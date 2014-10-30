@@ -2,6 +2,11 @@
 
 class Client {
 
+    /**
+     * Function starts session and checks if user try to login or not.
+     * If not, just loads login form. Else, if user trying to login, javascript generated response
+     * and username is sending to server to check.
+     */
     public function index()
     {
         session_start();
@@ -13,6 +18,11 @@ class Client {
         }
     }
 
+    /**
+     * @param $view
+     *
+     * Function it's just for shorten syntax to load forms.
+     */
     static function View($view)
     {
         require('views/' . $view . '.php');

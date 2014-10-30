@@ -5,6 +5,10 @@ use PDO;
 
 class Server {
 
+    /**
+     * Method loads Server side view, to add new user.
+     * Also it's adds user if get POST with username and password.
+     */
     public function index()
     {
         Client::View('server');
@@ -22,6 +26,10 @@ class Server {
         }
     }
 
+    /**
+     * @return PDO
+     * Method to connect to database.
+     */
     static function connectDB()
     {
         $db = new PDO('mysql:host=localhost;dbname=chresp;charset=utf8', 'chresp', 'chresp');
@@ -31,6 +39,11 @@ class Server {
         return $db;
     }
 
+    /**
+     * @return string
+     * Method generates challenge and add it to database for further check.
+     * It's also deletes old challenges to strict make login with one challenge in 6 minutes.
+     */
     static function getChallenge()
     {
         $challenge = sha1(uniqid(mt_rand(), true));
@@ -44,6 +57,12 @@ class Server {
         return $challenge;
     }
 
+    /**
+     * @param $response
+     * @param $username
+     *
+     * Method for check user response, username and password combination.
+     */
     static function login($response, $username)
     {
         $db = self::connectDB();
