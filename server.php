@@ -2,4 +2,4 @@
 
 use Chresp\Server as Server;
 
-(new Server())->index();
+(new Server())->showUserAddingForm();

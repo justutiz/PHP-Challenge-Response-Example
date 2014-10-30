@@ -2,4 +2,4 @@
 
 use Chresp\Client as Client;
 
-(new Client())->index();
+(new Client())->showClientLoginForm();
