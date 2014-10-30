@@ -38,9 +38,9 @@ class Server {
         if ( ! empty($user)) {
             $challenge = sha1($user[0]['username'] . ':' . $user[0]['password'] . ':' . $challenge);
             if ($response == $challenge) {
-                echo 'Prisijungta!';
+                echo 'Success!';
             } else {
-                echo 'Nepriijungta!';
+                echo 'Something goes wrong!';
             }
         }
 

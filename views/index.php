@@ -16,17 +16,17 @@
 </head>
 <body>
 <form action="" method="post" name="login_form" onsubmit="doChallengeResponse()">
-    <label for="username">Prisijungimo vardas:</label>
+    <label for="username">username:</label>
     <input type="text" name="username"/>
 
-    <label for="password">Slaptažodis:</label>
+    <label for="password">password:</label>
     <input type="text" name="password"/>
 
     <input type="text" name="challenge" value="<?php echo \Chresp\Server::getChallenge(); ?>" hidden/>
 
     <input type="text" name="response" value="" hidden/>
 
-    <input type="submit" value="Prisijungti"/>
+    <input type="submit" value="Login"/>
 </form>
 </body>
 </html>
