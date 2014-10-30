@@ -9,16 +9,13 @@ class Client {
         if ( ! empty($_POST['response']) && ! empty($_POST['username'])) {
             Server::login($_POST['response'], $_POST['username']);
         } else {
-            self::loadView('index');
+            self::View('index');
         }
-
-
     }
 
-    static function  loadView($view)
+    static function View($view)
     {
         require('views/' . $view . '.php');
-
     }
 
 }

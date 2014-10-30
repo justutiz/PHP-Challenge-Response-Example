@@ -7,35 +7,35 @@ class Server {
 
     public function index()
     {
-        Client::loadView('server');
+        Client::View('server');
 
         if ( ! empty($_POST['username']) && ! empty($_POST['password'])) {
 
             $username = $_POST['username'];
             $password = sha1($_POST['password']);
 
-            $db = (new Server)->connect();
+            $db = self::connectDB();
 
             $db->query('insert into user_accounts (username, password) values (\'' . $username . '\', \'' . $password . '\')');
-            printf('New user with username <b>%s</b> and password <b>%s</b> created.', $_POST['username'], $_POST['password']);
 
+            printf('New user with username <b>%s</b> and password <b>%s</b> created.', $_POST['username'], $_POST['password']);
         }
     }
 
-    public function connect()
+    static function connectDB()
     {
         $db = new PDO('mysql:host=localhost;dbname=chresp;charset=utf8', 'chresp', 'chresp');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         return $db;
     }
 
     static function getChallenge()
     {
-        $challenge = sha1(uniqid(mt_rand(), TRUE));
+        $challenge = sha1(uniqid(mt_rand(), true));
 
-        $db = (new Server)->connect();
+        $db = self::connectDB();
 
         $db->query('delete from challenge_record where sess_id = \'' . session_id() . "' or timestamp < " . time());
 
@@ -46,12 +46,11 @@ class Server {
 
     static function login($response, $username)
     {
-        $db = (new Server)->connect();
+        $db = self::connectDB();
 
         $challenge = $db->query('select challenge from challenge_record WHERE sess_id = "' . session_id() . '"')->fetchAll(PDO::FETCH_ASSOC)[0]['challenge'];
 
         $user = $db->query('select username, password from user_accounts where username = "' . $username . '"')->fetchAll(PDO::FETCH_ASSOC);
-
 
         if ( ! empty($user)) {
             $challenge = sha1($user[0]['username'] . ':' . $user[0]['password'] . ':' . $challenge);
