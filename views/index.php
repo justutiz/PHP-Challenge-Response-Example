@@ -17,14 +17,22 @@
 <body>
 <form action="" method="post" name="login_form" onsubmit="doChallengeResponse()">
     <label for="username">username:</label>
-    <input type="text" name="username"/>
+    <label>
+        <input type="text" name="username"/>
+    </label>
 
     <label for="password">password:</label>
-    <input type="text" name="password"/>
+    <label>
+        <input type="text" name="password"/>
+    </label>
 
-    <input type="text" name="challenge" value="<?php echo \Chresp\Server::getChallenge(); ?>" hidden/>
+    <label>
+        <input type="text" name="challenge" value="<?php echo \Chresp\Server::getChallenge(); ?>" hidden/>
+    </label>
 
-    <input type="text" name="response" value="" hidden/>
+    <label>
+        <input type="text" name="response" value="" hidden/>
+    </label>
 
     <input type="submit" value="Login"/>
 </form>

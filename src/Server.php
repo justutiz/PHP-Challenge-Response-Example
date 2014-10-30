@@ -19,9 +19,9 @@ class Server {
 
         $db = (new Server)->connect();
 
-        $db->query("delete from challenge_record where sess_id = '" . session_id() . "' or timestamp < " . time());
+        $db->query('delete from challenge_record where sess_id = \'' . session_id() . "' or timestamp < " . time());
 
-        $db->query("insert into challenge_record (sess_id, challenge, timestamp) values ('" . session_id() . "', '" . $challenge . "', " . (time() + 360) . ")");
+        $db->query('insert into challenge_record (sess_id, challenge, timestamp) values (\'' . session_id() . "', '" . $challenge . "', " . (time() + 360) . ")");
 
         return $challenge;
     }
