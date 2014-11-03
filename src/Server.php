@@ -11,7 +11,7 @@ class Server {
         if ( ! empty($_POST['username']) && ! empty($_POST['password'])) {
 
             $username = $_POST['username'];
-            $password = sha1($_POST['password']);
+            $password = hash('sha256', ($_POST['password']));
 
             $dbConnection = self::connectToDb();
 
@@ -32,7 +32,7 @@ class Server {
 
     static function getChallenge()
     {
-        $challenge = sha1(uniqid(mt_rand(), true));
+        $challenge = hash('sha256', (uniqid(mt_rand(), true)));
 
         $dbConnection = self::connectToDb();
 
@@ -52,7 +52,7 @@ class Server {
         $user = $dbConnection->query('select username, password from user_accounts where username = "' . $username . '"')->fetchAll(PDO::FETCH_ASSOC);
 
         if ( ! empty($user)) {
-            $challenge = sha1($user[0]['username'] . ':' . $user[0]['password'] . ':' . $challenge);
+            $challenge = hash('sha256', ($user[0]['username'] . ':' . $user[0]['password'] . ':' . $challenge));
             if ($response == $challenge) {
                 echo 'Login success!';
             } else {
