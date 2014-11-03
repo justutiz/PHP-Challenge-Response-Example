@@ -1,6 +1,5 @@
 <?php namespace Chresp;
 
-use Chresp\Client as Client;
 use PDO;
 
 class Server {
